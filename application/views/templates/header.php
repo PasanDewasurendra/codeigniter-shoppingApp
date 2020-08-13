@@ -32,10 +32,15 @@
   </div>
 	<ul class="navbar-nav navbar-right">
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo base_url(); ?>cart"><span class="glyphicon glyphicon-cart"></span> Cart</a>
+			<a class="nav-link" href="<?php echo base_url(); ?>cart">
+				<span class="fa fa-shopping-cart"></span> Cart
+				<span class='badge badge-warning' id='lblCartCount'> 5 </span>
+			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo base_url(); ?>register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+			<a class="nav-link" href="<?php echo base_url(); ?>register">
+				<span class="fa fa-user"></span> Sign Up
+			</a>
 		</li>
 	</ul>
 </nav>
