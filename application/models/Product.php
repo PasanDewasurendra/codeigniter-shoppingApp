@@ -21,6 +21,20 @@ class Product extends CI_Model{
 
 	}
 
+	public function getOrder($id){
+		$this->db->select('odr.* c.name, c.email, c.phone, c.address');
+		$this->db->from($this->tblOrders.'as ord');
+		$this->db->jont($this->tblCustomers.'as c', 'c.id = odr.cust_id', 'left');
+		$this->db->where('odr',$id);
+		$query = $this->db->get();
+		$result = $query->row_array();
+	}
+
+	public function addOrder($data){
+		if(!array_key_exists('create'));
+
+	}
+
 
 
 }

@@ -34,7 +34,7 @@
 		<li class="nav-item">
 			<a class="nav-link" href="<?php echo base_url(); ?>cart">
 				<span class="fa fa-shopping-cart"></span> Cart
-				<span class='badge badge-warning' id='lblCartCount'> 5 </span>
+				<span class='badge badge-warning' id='lblCartCount'> <?php echo ($this->cart->total_items()>0?$this->cart->total_items(): '')?></span>
 			</a>
 		</li>
 		<li class="nav-item">

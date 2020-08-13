@@ -1,4 +1,16 @@
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script>
+	function updateCartItem(obj, rowid){
+		$.get("<?php echo base_url('cart/updateItemQty/'); ?>", {rowid:rowid, qty:obj.value},
+			function(resp){
+				if(resp == 'ok'){
+					location.reload();
+				}else{
+					alert('Cart update failed, please try again.');
+				}
+		});
+	}
+</script>
 
 <div class="container mb-4">
 	<div class="row">
@@ -25,14 +37,21 @@
 						</td>
 						<td><?php echo $order['name']?></td>
 						<td>In stock</td>
-						<td><input class="form-control" type="text" value="<?php echo $order['qty']?>" /></td>
+						<td><input class="form-control" type="text" value="<?php echo $order['qty']?>" onchange="updateCartItem(this, '<?php echo $order['rowid'];?>')" /></td>
 						<td class="text-right"><?php echo 'Rs.'.$order['price']?></td>
-						<td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+
+						<td class="text-right">
+							<button class="btn btn-sm btn-danger"
+									onclick="return confirm('Confirm to remove this item !')?window.location.href=
+										'<?php echo base_url('cart/removeItem/'.$order['rowid']);?>':false;">
+								<i class="fa fa-trash"></i>
+							</button>
+						</td>
 					</tr>
 
 					<?php }}else{ ?>
 					<tr>
-						<td colspan="6"><p>Cart is empty!</p></td>
+						<td colspan="6"><p class="text-center">Cart is empty!</p></td>
 					</tr>
 
 					<?php } ?>
