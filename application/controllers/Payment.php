@@ -18,9 +18,24 @@ class Payment extends CI_Controller{
 		$data = array();
 		$data['orders'] = $this->cart->contents();
 
+		if($this->cart->total_items()<=0){
+			echo '<script>alert("Oops.You Dont have Any Product yet!");</script>';
+			redirect('cart/');
+		}
+
 		$this->load->view('templates/header');
 		$this->load->view('payment/index', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function removeItem($id){
+		$this->cart->remove($id);
+		if($this->cart->total_items()<=0){
+			redirect('cart/');
+		}else{
+			redirect('payment/index');
+		}
+
 	}
 
 	public function buyNow(){
@@ -37,7 +52,7 @@ class Payment extends CI_Controller{
 		$local_md5sig = strtoupper (md5 ( $merchant_id . $order_id . $payhere_amount . $payhere_currency . $status_code . strtoupper(md5($merchant_secret)) ) );
 
 		if (($local_md5sig === $md5sig) AND ($status_code == 2) ){
-			//TODO: Update your database as payment success
+
 		}
 
 	}

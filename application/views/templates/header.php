@@ -30,18 +30,44 @@
 		</li>
     </ul>
   </div>
+
 	<ul class="navbar-nav navbar-right">
-		<li class="nav-item">
+
+		<?php
+		if (isset($this->session->userdata['logged_in'])) {
+			$username = ($this->session->userdata['logged_in']['username']);
+			$email = ($this->session->userdata['logged_in']['email']);
+			?>
+			<li class="nav-item">
 			<a class="nav-link" href="<?php echo base_url(); ?>cart">
 				<span class="fa fa-shopping-cart"></span> Cart
 				<span class='badge badge-warning' id='lblCartCount'> <?php echo ($this->cart->total_items()>0?$this->cart->total_items(): '')?></span>
 			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="<?php echo base_url(); ?>register">
-				<span class="fa fa-user"></span> Sign Up
-			</a>
-		</li>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark">Hi <?= $username ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="<?php echo base_url('logout')?>">
+					<span class="fa fa-user-circle mr-1"></span>Logout
+				</a>
+			</li>
+
+		<?php
+		} else { ?>
+			<li class="nav-item">
+				<a class="nav-link" href="<?php echo base_url(); ?>register">
+					<span class="fa fa-user-o"></span>  Register Now
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="<?php echo base_url(); ?>login">
+					<span class="fa fa-user-o"></span> Sign In
+				</a>
+			</li>
+
+		<?php } ?>
+
 	</ul>
 </nav>
 <hr class="m-0">

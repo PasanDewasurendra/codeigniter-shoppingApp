@@ -18,11 +18,15 @@
 						<h4 class="card-title"><?php echo $item['name']?></h4>
 						<div class="card-text py-1"><?php echo 'Rs.'.$item['price']?></div>
 						<div class="card-text"><?php echo $item['qty'].' item(s)'?></div>
-						<button class="btn btn-sm btn-danger float-right"
-								onclick="return confirm('Confirm to remove this item !')?window.location.href=
-										'<?php echo base_url('cart/removeItem/'.$item['rowid']);?>':false;">
-							<i class="fa fa-trash"></i>
-						</button>
+
+						<a class="btn btn-sm btn-danger float-right"
+								href="<?php echo base_url('payment/removeItem/'.$item['rowid']);?>">
+								<i class="fa fa-trash"></i>
+						</a>
+						<a href="<?php echo base_url('cart/');?>" class="btn btn-sm btn-outline-secondary mx-1 float-right ">
+							<i class="fa fa-shopping-cart"><span class="ml-2">Edit</span></i>
+						</a>
+
 					</div>
 				</div>
 					<hr class="m-0">
@@ -43,9 +47,7 @@
 			<div class="form-group">
 				<label for="first_name">First Name</label>
 				<input class="form-control" type="text" name="first_name" value="Saman" placeholder="First Name">
-
-
-
+				<?php echo form_error('first_name','<p class="help-block error">','</p>'); ?>
 			</div>
 			<div class="form-group">
 				<label for="last_name">Last Name</label>
@@ -67,12 +69,17 @@
 				<label for="address">Address</label>
 				<textarea class="form-control" name="address" placeholder="Delivery Address">No.1, Galle Road </textarea>
 			</div>
+
+			<input type="hidden" name="merchant_id" value="1215196">    <!-- Replace your Merchant ID -->
+			<input type="hidden" name="return_url" value="http://sample.com/return">
+			<input type="hidden" name="cancel_url" value="http://sample.com/cancel">
+			<input type="hidden" name="notify_url" value="http://sample.com/notify">
 			<input type="hidden" name="country" value="Sri Lanka">
 			<input type="hidden" name="order_id" value="ItemNo12345">
 			<input type="hidden" name="items" value="Door bell wireless"><br>
 			<input type="hidden" name="currency" value="LKR">
-			<input type="hidden" name="amount" value="1000">
-			<input class="btn btn-outline-success float-right" type="submit" value="Buy Now">
+			<input type="hidden" name="amount" value="100">
+
 		</div>
 	</div>
 
