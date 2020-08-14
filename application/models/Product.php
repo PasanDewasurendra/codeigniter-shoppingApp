@@ -31,10 +31,15 @@ class Product extends CI_Model{
 	}
 
 	public function addOrder($data){
-		if(!array_key_exists('create'));
-
+		if(!array_key_exists('created_date', $data)){
+			$data['created_date'] = date('Y-m-d H-i-s');
+		}
+		if (!array_key_exists('updated_date', $data)){
+			$data['updated_date'] = date('Y-m-d H-i-s');
+		}
+		$insert = $this->db->insert($this->tblOrders, $data);
+		return $insert?$this->db->insert_id():false;
 	}
-
 
 
 }
