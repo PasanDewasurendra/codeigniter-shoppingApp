@@ -6,8 +6,8 @@
 
 		<div class="col-md-3 col-sm-6">
 			<div class="product-grid5">
-				<div class="product-image5">
-					<a href="#">
+				<div class="product-image5" >
+					<a href="#" >
 						<img class="pic-1" src="<?php echo base_url('assets/images/phones/'.$item['image'])?>">
 						<img class="pic-2" src="<?php echo base_url('assets/images/phones/2/'.$item['image'])?>">
 					</a>
