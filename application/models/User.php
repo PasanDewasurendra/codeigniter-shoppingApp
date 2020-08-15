@@ -5,12 +5,12 @@ class User extends CI_Model{
 
 	function register($data){
 		$this->db->select('*');
-		$this->db->from('costomers');
+		$this->db->from('customers');
 		$this->db->where("email = '".$data['email']."'");
 		$this->db->limit(1);
 		$query = $this->db->get();
 		if($query->num_rows() == 0){
-			$this->db-insert('constomers', $data);
+			$this->db->insert('customers', $data);
 			if ($this->db->affected_rows() > 0){
 				return true;
 			}

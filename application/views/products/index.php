@@ -9,7 +9,7 @@
 				<div class="product-image5">
 					<a href="#">
 						<img class="pic-1" src="<?php echo base_url('assets/images/phones/'.$item['image'])?>">
-						<img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo11/images/img-2.jpg">
+						<img class="pic-2" src="<?php echo base_url('assets/images/phones/2/'.$item['image'])?>">
 					</a>
 					<ul class="social">
 						<li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
@@ -28,7 +28,13 @@
 		<?php
 			}
 		}else{ ?>
-			<p>Product list is empty.</p>
+			<div class="justify-content-center" style="flex: auto">
+			<div class="card lead bg-light text-center mt-5 p-5">
+				<span class="fa fa-info-circle"></span>
+				Oops! , There is no product in the list at right now.
+			</div>
+			</div>
+
 		<?php } ?>
 
 

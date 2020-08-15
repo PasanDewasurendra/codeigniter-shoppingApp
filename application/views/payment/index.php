@@ -1,14 +1,19 @@
+<?php
+if (isset($this->session->userdata['logged_in'])) {
+	echo 'vvv'.validation_errors();
+	?>
 
 
-<form method="post" action="https://sandbox.payhere.lk/pay/checkout">
+<!--	https://sandbox.payhere.lk/pay/checkout-->
+<form method="post"action="<?= validation_errors() == '' ? base_url().'payment/BuyNow' :  'https://sandbox.payhere.lk/pay/checkout' ?>">
 
-	<div class="row">
+	<div class="row mb-5">
 
 		<div class="col-lg-8 mt-3">
 			<div class="card">
 				<?php if ($this->cart->total_items() > 0){
-					$items = $orders;
-				foreach ($items as $item){  ?>
+				foreach ($this->cart->contents() as $item){ ?>
+
 				<div style="display: flex; flex: 1 1 auto;">
 					<div class="img-square-wrapper">
 						<?php $imageURL = !empty($item["image"])?base_url('assets/images/phones/'.$item["image"]):base_url('assets/images/logo.png'); ?>
@@ -39,35 +44,40 @@
 		</div>
 
 
-		<div class="col-lg-4 mt-3 card p-2 ">
+		<div class="col-lg-4 mt-3 card p-0">
 
-			<h4 class="p-1">Customer Details</h4>
-			<hr>
+			<h4 class="p-1 bg-light text-primary text-center p-2 m-0">Shipping Details</h4>
+			<hr class="mt-0">
 
-			<div class="form-group">
+			<div class="form-group px-2">
 				<label for="first_name">First Name</label>
-				<input class="form-control" type="text" name="first_name" value="Saman" placeholder="First Name">
-				<?php echo form_error('first_name','<p class="help-block error">','</p>'); ?>
+				<input class="form-control" type="text" name="first_name" value="<?php echo $customer[0]->name?>" placeholder="First Name">
+				<span class="text-danger"><?php echo form_error('first_name'); ?></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group px-2">
 				<label for="last_name">Last Name</label>
-				<input class="form-control" type="text" name="last_name" value="Perera" placeholder="Last Name">
+				<input class="form-control" type="text" name="last_name" value="" placeholder="Last Name">
+				<span class="text-danger"><?php echo form_error('last_name'); ?></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group px-2">
 				<label for="email">Email</label>
-				<input class="form-control" type="text" name="email" value="samanp@gmail.com" placeholder="Email Address">
+				<input class="form-control" type="text" name="email" value="<?php echo $customer[0]->email?>" placeholder="Email Address">
+				<span class="text-danger"><?php echo form_error('email'); ?></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group px-2">
 				<label for="phone">Phone</label>
-				<input class="form-control" type="text" name="phone" value="0771234567" placeholder="Mobile Number">
+				<input class="form-control" type="text" name="phone" value="<?php echo $customer[0]->phone?>" placeholder="Mobile Number">
+				<span class="text-danger"><?php echo form_error('phone'); ?></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group px-2">
 				<label for="city">City</label>
-				<input class="form-control" type="text" name="city" value="Colombo" placeholder="City">
+				<input class="form-control" type="text" name="city" value="" placeholder="City">
+				<span class="text-danger"><?php echo form_error('city'); ?></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group px-2">
 				<label for="address">Address</label>
-				<textarea class="form-control" name="address" placeholder="Delivery Address">No.1, Galle Road </textarea>
+				<textarea class="form-control" name="address" placeholder="Delivery Address"><?php echo $customer[0]->address?></textarea>
+				<span class="text-danger"><?php echo form_error('address'); ?></span>
 			</div>
 
 			<input type="hidden" name="merchant_id" value="1215196">    <!-- Replace your Merchant ID -->
@@ -75,15 +85,28 @@
 			<input type="hidden" name="cancel_url" value="http://sample.com/cancel">
 			<input type="hidden" name="notify_url" value="http://sample.com/notify">
 			<input type="hidden" name="country" value="Sri Lanka">
+
 			<input type="hidden" name="order_id" value="ItemNo12345">
-			<input type="hidden" name="items" value="Door bell wireless"><br>
+			<input type="hidden" name="items" value="Mobile Phone"><br>
 			<input type="hidden" name="currency" value="LKR">
-			<input type="hidden" name="amount" value="100">
+			<input type="hidden" name="amount" value="<?php echo $this->cart->total(); ?>">
 
 		</div>
 	</div>
 
 </form>
+
+<?php
+}else{ ?>
+
+		<div class="card lead bg-light text-center mt-5 p-5">
+			<span class="fa fa-info-circle"></span>
+			To Make Payment, First you have to login with valid account! <br>
+			<a href="<?php echo base_url()?>login">Login Here</a>
+		</div>
+
+<?php }
+?>
 
 
 

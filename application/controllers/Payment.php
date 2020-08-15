@@ -10,13 +10,19 @@ class Payment extends CI_Controller{
 		$this->load->helper('form');
 		$this->load->library('cart');
 		$this->load->model('product');
-		$this->controller = 'payment';
+		$this->load->model('user');
+
+		if(!$this->session->userdata['logged_in']){
+			redirect('cart/');
+		}
+
+		$user = ($this->session->userdata['logged_in']['email']);
+		$this->data['customer'] = $this->user->read_user_information($user);
 	}
 
 	public function index(){
 
-		$data = array();
-		$data['orders'] = $this->cart->contents();
+//		$data['myCart'] = $this->cart->contents();
 
 		if($this->cart->total_items()<=0){
 			echo '<script>alert("Oops.You Dont have Any Product yet!");</script>';
@@ -24,7 +30,7 @@ class Payment extends CI_Controller{
 		}
 
 		$this->load->view('templates/header');
-		$this->load->view('payment/index', $data);
+		$this->load->view('payment/index',$this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -40,19 +46,34 @@ class Payment extends CI_Controller{
 
 	public function buyNow(){
 
-		$merchant_id = $_POST['merchant_id'];
-		$order_id = $_POST['order_id'];
-		$payhere_amount = $_POST['payhere_amount'];
-		$payhere_currency = $_POST['payhere_currency'];
-		$status_code = $_POST['status_code'];
-		$md5sig = $_POST['md5sig'];
+		$this->form_validation->set_rules('first_name', 'First Name', 'required');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('phone', 'Phone', 'required');
+		$this->form_validation->set_rules('city', 'City', 'required');
+		$this->form_validation->set_rules('address', 'Address', 'required');
 
-		$merchant_secret = 'XXXXXXXXXXXXX'; // Replace with your Merchant Secret (Can be found on your PayHere account's Settings page)
+		if($this->form_validation->run() == FALSE){
 
-		$local_md5sig = strtoupper (md5 ( $merchant_id . $order_id . $payhere_amount . $payhere_currency . $status_code . strtoupper(md5($merchant_secret)) ) );
+			$this->load->view('templates/header');
+			$this->load->view('payment/index',$this->data);
+			$this->load->view('templates/footer');
+		}else{
 
-		if (($local_md5sig === $md5sig) AND ($status_code == 2) ){
+			$merchant_id = $this->input->post('merchant_id');
+			$order_id = $this->input->post('order_id');
+			$payhere_amount = $this->input->post('payhere_amount');
+			$payhere_currency = $this->input->post('payhere_currency');
+			$status_code = $this->input->post('status_code');
+			$md5sig = $this->input->post('md5sig');
 
+			$merchant_secret = 'XXXXXXXXXXXXX'; // Replace with your Merchant Secret (Can be found on your PayHere account's Settings page)
+
+			$local_md5sig = strtoupper (md5 ( $merchant_id . $order_id . $payhere_amount . $payhere_currency . $status_code . strtoupper(md5($merchant_secret)) ) );
+
+			if (($local_md5sig === $md5sig) AND ($status_code == 2) ){
+				echo 'sdsd';;
+			}
 		}
 
 	}

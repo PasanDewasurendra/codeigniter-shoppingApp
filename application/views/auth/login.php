@@ -4,7 +4,7 @@ if (isset($this->session->userdata['logged_in'])) {
 }
 ?>
 
-<div class="row mt-5">
+<div class="row mt-5 justify-content-center">
 	<div class="col-lg-8 mt-3">
 		<div class="card">
 			<div style="display: flex; flex: 1 1 auto;">
@@ -20,8 +20,9 @@ if (isset($this->session->userdata['logged_in'])) {
 					</div>
 					<div class="form-group">
 						<label class="mb-0" for="password">Password</label>
-						<input type="text" class="form-control form-control-sm" name="password" placeholder="Password">
+						<input type="password" class="form-control form-control-sm" name="password" placeholder="Password">
 					</div>
+					<a class="float-left" href="<?php echo base_url()?>register ">Dont have an account? Sign Up</a>
 					<button type="submit" class="btn btn-outline-primary float-right">Login</button>
 
 				</div>

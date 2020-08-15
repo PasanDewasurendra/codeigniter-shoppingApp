@@ -25,14 +25,17 @@ class Users extends CI_Controller{
 
 	public function createUser(){
 		//validations
-		$this->form_validation->set_rules('first_name', 'FirstName', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('last_name', 'LastName', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('first_name', 'FirstName', 'trim|required');
+		$this->form_validation->set_rules('last_name', 'LastName', 'trim|required');
+		$this->form_validation->set_rules('phone', 'Mobile Number', 'trim|required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required');
+		$this->form_validation->set_rules('address', 'Address', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('templates/header');
 			$this->load->view('auth/register');
+			$this->load->view('templates/footer');
 		} else {
 			$name = $this->input->post('first_name').' '.$this->input->post('last_name');
 			$data = array(
@@ -43,13 +46,17 @@ class Users extends CI_Controller{
 				'password' => $this->input->post('password')
 			);
 
-			$result = $this->User->register($data);
+			$result = $this->user->register($data);
 			if ($result == TRUE) {
 				$data['message_display'] = 'Registration Successfully !';
+				$this->load->view('templates/header');
 				$this->load->view('auth/login', $data);
+				$this->load->view('templates/footer');
 			} else {
 				$data['message_display'] = 'User already exist!';
+				$this->load->view('templates/header');
 				$this->load->view('auth/register', $data);
+				$this->load->view('templates/footer');
 			}
 		}
 	}
