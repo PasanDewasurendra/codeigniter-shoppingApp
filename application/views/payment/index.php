@@ -1,8 +1,5 @@
 <?php
-if (isset($this->session->userdata['logged_in'])) {
-	echo 'vvv'.validation_errors();
-	?>
-
+if (isset($this->session->userdata['logged_in'])) { ?>
 
 <!--	https://sandbox.payhere.lk/pay/checkout-->
 <form method="post"action="<?= validation_errors() == '' ? base_url().'payment/BuyNow' :  'https://sandbox.payhere.lk/pay/checkout' ?>">
@@ -51,7 +48,7 @@ if (isset($this->session->userdata['logged_in'])) {
 
 			<div class="form-group px-2">
 				<label for="first_name">First Name</label>
-				<input class="form-control" type="text" name="first_name" value="<?php echo $customer[0]->name?>" placeholder="First Name">
+				<input class="form-control" type="text" name="first_name"  placeholder="First Name">
 				<span class="text-danger"><?php echo form_error('first_name'); ?></span>
 			</div>
 			<div class="form-group px-2">
@@ -61,22 +58,22 @@ if (isset($this->session->userdata['logged_in'])) {
 			</div>
 			<div class="form-group px-2">
 				<label for="email">Email</label>
-				<input class="form-control" type="text" name="email" value="<?php echo $customer[0]->email?>" placeholder="Email Address">
+				<input class="form-control" type="text" name="email"  placeholder="Email Address">
 				<span class="text-danger"><?php echo form_error('email'); ?></span>
 			</div>
 			<div class="form-group px-2">
 				<label for="phone">Phone</label>
-				<input class="form-control" type="text" name="phone" value="<?php echo $customer[0]->phone?>" placeholder="Mobile Number">
+				<input class="form-control" type="text" name="phone"  placeholder="Mobile Number">
 				<span class="text-danger"><?php echo form_error('phone'); ?></span>
 			</div>
 			<div class="form-group px-2">
 				<label for="city">City</label>
-				<input class="form-control" type="text" name="city" value="" placeholder="City">
+				<input class="form-control" type="text" name="city"  placeholder="City">
 				<span class="text-danger"><?php echo form_error('city'); ?></span>
 			</div>
 			<div class="form-group px-2">
 				<label for="address">Address</label>
-				<textarea class="form-control" name="address" placeholder="Delivery Address"><?php echo $customer[0]->address?></textarea>
+				<textarea class="form-control" name="address" placeholder="Delivery Address"></textarea>
 				<span class="text-danger"><?php echo form_error('address'); ?></span>
 			</div>
 

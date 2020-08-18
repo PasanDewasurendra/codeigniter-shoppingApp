@@ -6,18 +6,13 @@ class Payment extends CI_Controller{
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('form_validation');
+		$this->load->library(array('session', 'form_validation'));
 		$this->load->helper('form');
 		$this->load->library('cart');
 		$this->load->model('product');
 		$this->load->model('user');
 
-		if(!$this->session->userdata['logged_in']){
-			redirect('cart/');
-		}
 
-		$user = ($this->session->userdata['logged_in']['email']);
-		$this->data['customer'] = $this->user->read_user_information($user);
 	}
 
 	public function index(){
@@ -30,7 +25,7 @@ class Payment extends CI_Controller{
 		}
 
 		$this->load->view('templates/header');
-		$this->load->view('payment/index',$this->data);
+		$this->load->view('payment/index');
 		$this->load->view('templates/footer');
 	}
 
@@ -56,7 +51,7 @@ class Payment extends CI_Controller{
 		if($this->form_validation->run() == FALSE){
 
 			$this->load->view('templates/header');
-			$this->load->view('payment/index',$this->data);
+			$this->load->view('payment/index');
 			$this->load->view('templates/footer');
 		}else{
 
